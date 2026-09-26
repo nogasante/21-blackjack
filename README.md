@@ -1,6 +1,8 @@
 # ♠ 21 — Blackjack in under 2 KB
 
-A complete blackjack game in a **single 1,972-byte HTML file** — no build step, no dependencies, no assets. Open `index.html` and play.
+A complete blackjack game in a **single 1,972-byte HTML file** — no build step, no dependencies, no assets.
+
+**▶ Play it live: https://atom-lovat.vercel.app** — or just open `index.html` and play offline.
 
 ## The size, precisely
 
