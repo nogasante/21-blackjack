@@ -1,0 +1,38 @@
+<!doctype html><title>21</title><style>
+body{background:#063;color:#fff;font:16px monospace;text-align:center;margin-top:6vh}
+i{display:inline-block;min-width:34px;height:50px;line-height:50px;background:#fff;border-radius:6px;margin:2px;font:20px monospace;font-style:normal;color:#000}
+.x{color:#c00}
+button{font:15px monospace;border:0;border-radius:6px;padding:8px 14px;margin:3px;background:#fff;cursor:pointer}
+button:disabled{opacity:.4}
+p{margin:9px}
+#t{min-height:24px;font-size:18px}
+</style>
+<h1>♠ 21 ♠</h1>
+<p id=t>
+<p id=d>
+<p id=y>
+<p id=q>
+<p><button id=D>Deal<button id=H>Hit<button id=S>Stand<button id=X>2×<button id=J>-5<button id=K>+5
+<script>
+su='♠♥♦♣',rd='♥♦',rk='A23456789TJQK'
+mo=100,be=10,P=[],Q=[],g=0
+cd=c=>'<i class='+(rd.includes(c[1])?'x':'')+'>'+(c[0]=='T'?'10':c[0])+c[1]+'</i>'
+msg=s=>t.innerHTML=s
+val=h=>{for(n=w=a=0;c=h[n++];)v='A23456789'.indexOf(c[0])+1||10,w+=v,a+=v<2;for(;a--&&w+10<22;)w+=10;return w}
+dc=()=>rk[Math.random()*13|0]+su[Math.random()*4|0]
+show=_=>{mo<1?(mo=100,be=10,t.innerHTML+=' <b>New $100</b>'):0,
+d.innerHTML=Q.map((c,n)=>n&&g?'<i>?</i>':cd(c)).join('')+(g||!Q.length?'':' '+val(Q)),
+y.innerHTML=P.map(cd).join('')+(P.length?' '+val(P):''),
+q.innerHTML='Bet '+be+' · $'+mo,
+D.disabled=g,H.disabled=S.disabled=X.disabled=!g}
+D.onclick=_=>{if(g)return;P=[];Q=[];t.innerHTML='';be>mo&&(be=mo);P.push(dc(),dc()),Q.push(dc(),dc())
+val(P)==21?(val(Q)==21?msg('Push'):(mo+=be*3/2|0,msg('Blackjack!'))):val(Q)==21?(mo-=be,msg('Dealer 21!')):g=1;show()}
+hit=_=>{if(g){P.push(dc()),val(P)>21&&(g=0,mo-=be,msg('Bust!'));show()}}
+cmp=_=>{u=val(P),v=val(Q);u>v||v>21?(mo+=be,msg('You win!')):u<v?(mo-=be,msg('Dealer wins')):msg('Push');show()}
+stand=_=>{if(g){g=0;while(val(Q)<17)Q.push(dc());cmp()}}
+dbl=_=>{g&&P.length<3&&mo>=2*be&&(be*=2,hit(),g&&stand())}
+J.onclick=_=>{!g&&be>5&&(be-=5,show())}
+K.onclick=_=>{!g&&be+5<=mo&&(be+=5,show())}
+H.onclick=hit,S.onclick=stand,X.onclick=dbl
+show()
+</script>
